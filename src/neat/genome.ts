@@ -18,6 +18,14 @@ export class Genome {
     this.outputs = outputs;
   }
 
+  toJson() {
+    return {
+      nodes: this.nodes.map((node) => node.toJson()),
+      connections: this.connections.map((connection) => connection.toJson()),
+      layers: this.layers,
+    };
+  }
+
   static getRandom(inputs: number, outputs: number) {
     const genome = new Genome(inputs, outputs);
     genome.initialize();

@@ -1,4 +1,5 @@
 import { Card } from '../deck/deck';
+import { logger } from '../logger/logger';
 import { Genome } from '../neat/Genome';
 import { ScoreCalculator } from '../utils/scoreCalculator';
 
@@ -100,6 +101,14 @@ export class Player {
     inputs.push(hasPickedFromDeck ? 1 : 0); //send if player picked from deck
     inputs.push(this.turns); //send turns
     const output: number[] = this.brain.evaluate(inputs);
+    logger.critical('Output: ' + this.generation, { output: output });
     return this.mapOutputToAction(output);
+  }
+
+  toJson() {
+    return {
+      brain: this.brain.toJson(),
+      generation: this.generation,
+    };
   }
 }

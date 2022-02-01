@@ -29,6 +29,10 @@ export class Population {
     return null;
   }
 
+  toJson() {
+    return this.population.map((player) => player.toJson());
+  }
+
   async evolve() {
     // play round
     logger.info('Generation: ' + this.generation);

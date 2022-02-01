@@ -45,4 +45,14 @@ export class ConnectionGene extends Gene {
     clone.enabled = isEnabled;
     return clone;
   }
+
+  toJson() {
+    return {
+      id: this.id,
+      fromNode: this.fromNode.id,
+      toNode: this.toNode.id,
+      weight: this.weight,
+      enabled: this.enabled,
+    };
+  }
 }

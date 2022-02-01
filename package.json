@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
+    "benchmark": "^2.1.4",
     "chance": "^1.1.8",
     "csv-stringify": "^6.0.5",
     "lodash": "^4.17.21",

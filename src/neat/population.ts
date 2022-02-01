@@ -1,9 +1,6 @@
-import { resolve } from 'path';
-
-import Piscina from 'piscina';
-
 import { logger } from '../logger/logger';
 import { Player } from '../player/player';
+import { Round } from '../round/round';
 
 export class Population {
   size = 1000; //must be even
@@ -13,17 +10,11 @@ export class Population {
   bestPlayerInGen: Player;
   bestPlayerSoFar: Player;
   avgFitness = 0;
-  piscina: Piscina;
 
   constructor() {
     for (let i = 0; i < this.size; i++) {
       this.population.push(Player.randomPlayer(this.generation, i));
     }
-    this.piscina = new Piscina({
-      filename: resolve(__dirname, '../round/roundMultithread.js'),
-      maxThreads: 200,
-      minThreads: 200,
-    });
   }
 
   private randomSelection() {
@@ -41,17 +32,10 @@ export class Population {
   async evolve() {
     // play round
     logger.info('Generation: ' + this.generation);
-    const rounds = [];
     for (let i = 0; i < this.size; i += 2) {
-      rounds.push(
-        this.piscina.run({
-          player1: this.population[i],
-          player2: this.population[i + 1],
-        })
-      );
+      const round = new Round([this.population[i], this.population[i + 1]]);
+      round.play();
     }
-
-    await Promise.all(rounds);
 
     // select best by random selection
     this.totalFitness = 0;

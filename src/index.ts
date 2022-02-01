@@ -3,11 +3,12 @@ import { Population } from './neat/population';
 
 (async function () {
   logger.info('Starting NN');
-  console.log(Date.now());
+  const before = Date.now();
   const population = new Population();
-  for (let i = 0; i < 2000000; i++) {
+  for (let i = 0; i < 600; i++) {
     console.log(i);
     await population.evolve();
   }
-  console.log(Date.now());
+  const after = Date.now();
+  console.log(`Finished in ${(after - before) / 1000} seconds`);
 })();

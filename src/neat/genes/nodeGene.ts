@@ -19,7 +19,7 @@ export class NodeGene extends Gene {
   }
 
   feedForward() {
-    this.output = this.layer === 0 ? this.sigmod(this.input) : this.input;
+    this.output = this.layer !== 0 ? this.sigmod(this.input) : this.input;
     this.outConnections.forEach((connection) => {
       connection.input = this.output;
     });
@@ -31,5 +31,12 @@ export class NodeGene extends Gene {
 
   clone() {
     return new NodeGene(this.id, this.layer);
+  }
+
+  toJson() {
+    return {
+      id: this.id,
+      layer: this.layer,
+    };
   }
 }

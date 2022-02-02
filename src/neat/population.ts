@@ -3,7 +3,7 @@ import { Player } from '../player/player';
 import { Round } from '../round/round';
 
 export class Population {
-  size = 1000; //must be even
+  size = 100; //must be even
   population: Player[] = [];
   totalFitness = 0;
   generation = 0;
@@ -33,7 +33,7 @@ export class Population {
     return this.population.map((player) => player.toJson());
   }
 
-  async evolve() {
+  evolve() {
     // play round
     logger.info('Generation: ' + this.generation);
     for (let i = 0; i < this.size; i += 2) {

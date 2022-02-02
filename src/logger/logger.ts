@@ -12,7 +12,7 @@ const pinoConfig = {
 
 const loggerFile = pino(
   pinoConfig,
-  pino.destination({ dest: './logs/log', append: false })
+  pino.destination({ dest: './logs/log', sync: true, append: false })
 );
 
 // const loggerConsole = pino(pinoConfig, pino.destination({ sync: true }));
@@ -24,7 +24,7 @@ const loggerCritical = pino(
 
 const loggerInfo = pino(
   pinoConfig,
-  pino.destination({ dest: './logs/info', append: false })
+  pino.destination({ dest: './logs/info', sync: true, append: false })
 );
 
 //absolute clusterfuck of a logger

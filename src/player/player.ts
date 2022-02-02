@@ -12,6 +12,7 @@ export enum PlayerActions {
 
 export class Player {
   initialCards: Card[];
+  initialScore = 0;
   cards: Card[];
   brain: Genome;
   score = 100; //every player starts with a score of 100
@@ -44,6 +45,7 @@ export class Player {
   deal(cards: Card[]) {
     this.initialCards = cards;
     this.cards = cards;
+    this.initialScore = ScoreCalculator.getScore(this.cards);
   }
 
   newRound() {
@@ -56,7 +58,7 @@ export class Player {
   }
 
   calculateFitness() {
-    this.fitness = 1 / (this.score + (this.generation / 200) * this.turns + 1); // +1 to avoid division by zero
+    this.fitness = Math.max(this.initialScore - this.score, 0); // set zero if improvement is negative
   }
 
   tryAndReplaceCard(droppedCard, pickedCard): boolean {
